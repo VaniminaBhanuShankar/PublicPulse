@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Signup - PublicPulse</title>
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            font-family:'Poppins', sans-serif;
+
+            height:100vh;
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            background:
+            linear-gradient(
+            rgba(0,0,0,0.6),
+            rgba(0,0,0,0.6)
+            ),
+            url('/images/bg.jpg');
+
+            background-size:cover;
+
+            background-position:center;
+
+        }
+
+        .signup-box{
+
+            width:400px;
+
+            background:
+            rgba(0,0,0,0.75);
+
+            padding:30px;
+
+            border-radius:24px;
+
+            backdrop-filter:blur(14px);
+
+        }
+
+        h1{
+
+            text-align:center;
+
+            color:#f97316;
+
+            margin-bottom:25px;
+
+        }
+
+        label{
+
+            display:block;
+
+            color:white;
+
+            margin-top:14px;
+
+            margin-bottom:5px;
+
+        }
+
+        input{
+
+            width:100%;
+
+            padding:12px;
+
+            border:none;
+
+            border-radius:12px;
+
+            outline:none;
+
+        }
+
+        button{
+
+            width:100%;
+
+            margin-top:22px;
+
+            padding:13px;
+
+            border:none;
+
+            border-radius:12px;
+
+            background:
+            linear-gradient(
+            to right,
+            #f97316,
+            #fb923c
+            );
+
+            color:white;
+
+            font-size:16px;
+
+            font-weight:600;
+
+            cursor:pointer;
+
+        }
+
+        p{
+
+            text-align:center;
+
+            margin-top:18px;
+
+            color:white;
+
+        }
+
+        a{
+
+            color:#fb923c;
+
+            text-decoration:none;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="signup-box">
+
+    <h1>Create Account</h1>
+
+    <form action="/signup"
+        method="post">
+
+        <label>Name</label>
+
+        <input type="text"
+            name="name"
+            required>
+
+        <label>Email</label>
+
+        <input type="email"
+            name="email"
+            required>
+
+        <label>Mobile Number</label>
+
+        <input type="text"
+            name="mobile"
+            required>
+
+        <label>Password</label>
+
+        <input type="password"
+            name="password"
+            required>
+
+        <button type="submit">
+
+            Signup
+
+        </button>
+
+    </form>
+
+    <p>
+
+        Already have an account?
+
+        <a href="/login">
+
+            Login
+
+        </a>
+
+    </p>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>Admin Dashboard</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            font-family:'Poppins', sans-serif;
+
+            background:
+            linear-gradient(
+            rgba(0,0,0,0.78),
+            rgba(0,0,0,0.78)
+            ),
+            url('/images/bg.jpg');
+
+            background-size:cover;
+
+            background-position:center;
+
+            min-height:100vh;
+
+            color:white;
+
+            padding:22px;
+
+        }
+
+        h1{
+
+            text-align:center;
+
+            margin-bottom:20px;
+
+            color:#ff7b00;
+
+            font-size:30px;
+
+        }
+
+        /* TOP BAR */
+
+        .top-bar{
+
+            display:flex;
+
+            justify-content:flex-end;
+
+            margin-bottom:16px;
+
+        }
+
+        .logout-btn{
+
+            text-decoration:none;
+
+            background:#ef4444;
+
+            color:white;
+
+            padding:8px 15px;
+
+            border-radius:10px;
+
+            font-size:13px;
+
+            font-weight:600;
+
+        }
+
+        /* DASHBOARD */
+
+        .dashboard{
+
+            display:flex;
+
+            justify-content:center;
+
+            gap:12px;
+
+            margin-bottom:20px;
+
+            flex-wrap:wrap;
+
+        }
+
+        .dash-card{
+
+            background:
+            rgba(0,0,0,0.72);
+
+            padding:12px 18px;
+
+            border-radius:14px;
+
+            text-align:center;
+
+            min-width:115px;
+
+            border:
+            1px solid rgba(255,255,255,0.08);
+
+            backdrop-filter:blur(10px);
+
+        }
+
+        .dash-card h2{
+
+            font-size:22px;
+
+            margin-bottom:3px;
+
+            color:#ff7b00;
+
+        }
+
+        .dash-card p{
+
+            font-size:12px;
+
+            color:#e5e7eb;
+
+        }
+
+        .pending-card h2{
+
+            color:#f59e0b;
+
+        }
+
+        .progress-card h2{
+
+            color:#3b82f6;
+
+        }
+
+        .resolved-card h2{
+
+            color:#22c55e;
+
+        }
+
+        /* SEARCH */
+
+        .search-box{
+
+            display:flex;
+
+            justify-content:center;
+
+            margin-bottom:16px;
+
+        }
+
+        .search-box input{
+
+            width:280px;
+
+            padding:10px 14px;
+
+            border:none;
+
+            outline:none;
+
+            border-radius:12px;
+
+            font-size:13px;
+
+            background:white;
+
+        }
+
+        /* STATUS INFO */
+
+        .status-info{
+
+            margin-top:10px;
+
+            text-align:center;
+
+            font-size:12px;
+
+            color:#e5e7eb;
+
+        }
+
+        .status-info span{
+
+            margin:0 8px;
+
+            font-weight:600;
+
+        }
+
+        .pending-status{
+
+            color:#f59e0b;
+
+        }
+
+        .progress-status{
+
+            color:#3b82f6;
+
+        }
+
+        .resolved-status{
+
+            color:#22c55e;
+
+        }
+
+        /* TABLE */
+
+        .table-container{
+
+            width:100%;
+
+            overflow-x:auto;
+
+            background:
+            rgba(0,0,0,0.72);
+
+            padding:12px;
+
+            border-radius:16px;
+
+            backdrop-filter:blur(12px);
+
+        }
+
+        table{
+
+            width:100%;
+
+            border-collapse:collapse;
+
+        }
+
+        th{
+
+            background:#ff7b00;
+
+            color:white;
+
+            padding:10px;
+
+            font-size:12px;
+
+        }
+
+        td{
+
+            padding:9px;
+
+            text-align:center;
+
+            border-bottom:
+            1px solid rgba(255,255,255,0.08);
+
+            font-size:12px;
+
+        }
+
+        /* IMAGE */
+
+        img{
+
+            width:65px;
+
+            height:45px;
+
+            object-fit:cover;
+
+            border-radius:8px;
+
+            cursor:pointer;
+
+            transition:0.3s;
+
+        }
+
+        img:hover{
+
+            transform:scale(1.05);
+
+        }
+
+        /* BUTTONS */
+
+        select{
+
+            padding:6px 8px;
+
+            border:none;
+
+            border-radius:8px;
+
+            outline:none;
+
+            font-size:12px;
+
+        }
+
+        .update-btn{
+
+            padding:6px 10px;
+
+            border:none;
+
+            border-radius:8px;
+
+            background:#2563eb;
+
+            color:white;
+
+            cursor:pointer;
+
+            font-size:12px;
+
+        }
+
+        .delete-btn{
+
+            text-decoration:none;
+
+            padding:6px 10px;
+
+            border-radius:8px;
+
+            background:#ef4444;
+
+            color:white;
+
+            font-size:12px;
+
+        }
+
+        .map-btn{
+
+            text-decoration:none;
+
+            color:#60a5fa;
+
+            font-weight:600;
+
+            font-size:12px;
+
+        }
+
+        /* IMAGE MODAL */
+
+        .modal{
+
+            display:none;
+
+            position:fixed;
+
+            z-index:3000;
+
+            left:0;
+
+            top:0;
+
+            width:100%;
+
+            height:100%;
+
+            background:
+            rgba(0,0,0,0.92);
+
+            justify-content:center;
+
+            align-items:center;
+
+        }
+
+        .modal img{
+
+            max-width:80%;
+
+            max-height:80%;
+
+            border-radius:14px;
+
+            width:auto;
+
+            height:auto;
+
+        }
+
+        .close-btn{
+
+            position:absolute;
+
+            top:20px;
+
+            right:30px;
+
+            font-size:40px;
+
+            color:white;
+
+            cursor:pointer;
+
+        }
+
+        /* MOBILE */
+
+        @media(max-width:900px){
+
+            body{
+
+                padding:12px;
+
+            }
+
+            h1{
+
+                font-size:24px;
+
+            }
+
+            th,
+            td{
+
+                font-size:11px;
+
+                padding:7px;
+
+            }
+
+            .search-box input{
+
+                width:100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+
+<div class="top-bar">
+
+    <a href="/adminlogout"
+       class="logout-btn">
+
+       Logout
+
+    </a>
+
+</div>
+
+<h1>Admin Dashboard</h1>
+
+<!-- DASHBOARD -->
+
+<div class="dashboard">
+
+    <div class="dash-card">
+
+        <h2 id="totalCount">0</h2>
+
+        <p>Total</p>
+
+    </div>
+
+    <div class="dash-card pending-card">
+
+        <h2 id="pendingCount">0</h2>
+
+        <p>Pending</p>
+
+    </div>
+
+    <div class="dash-card progress-card">
+
+        <h2 id="progressCount">0</h2>
+
+        <p>In Progress</p>
+
+    </div>
+
+    <div class="dash-card resolved-card">
+
+        <h2 id="resolvedCount">0</h2>
+
+        <p>Resolved</p>
+
+    </div>
+
+</div>
+
+<!-- SEARCH -->
+
+<div class="search-box">
+
+    <input type="text"
+           id="searchInput"
+           placeholder="Search complaints...">
+
+</div>
+
+<!-- STATUS INFO -->
+
+<div class="status-info">
+
+    <span class="pending-status">
+        ● Pending
+    </span>
+
+    <span class="progress-status">
+        ● In Progress
+    </span>
+
+    <span class="resolved-status">
+        ● Resolved
+    </span>
+
+</div>
+
+<br>
+
+<!-- TABLE -->
+
+<div class="table-container">
+
+    <table>
+
+        <thead>
+
+        <tr>
+
+            <th>ID</th>
+
+            <th>Title</th>
+
+            <th>Category</th>
+
+            <th>Location</th>
+
+            <th>Status</th>
+
+            <th>Image</th>
+
+            <th>Date</th>
+
+            <th>Update</th>
+
+            <th>Delete</th>
+
+        </tr>
+
+        </thead>
+
+        <tbody>
+
+        <tr th:each="complaint : ${complaints}">
+
+            <td th:text="${complaint.id}"></td>
+
+            <td th:text="${complaint.title}"></td>
+
+            <td th:text="${complaint.category}"></td>
+
+            <!-- MAP -->
+
+            <td>
+
+                <a th:href="'https://www.google.com/maps?q=' + ${complaint.location}"
+                   target="_blank"
+                   class="map-btn">
+
+                   📍 Map
+
+                </a>
+
+            </td>
+
+            <!-- STATUS -->
+
+            <td>
+
+                <form action="/updateStatus"
+                      method="post">
+
+                    <input type="hidden"
+                           name="id"
+                           th:value="${complaint.id}">
+
+                    <select name="status">
+
+                        <option th:selected="${complaint.status == 'Pending'}">
+
+                            Pending
+
+                        </option>
+
+                        <option th:selected="${complaint.status == 'In Progress'}">
+
+                            In Progress
+
+                        </option>
+
+                        <option th:selected="${complaint.status == 'Resolved'}">
+
+                            Resolved
+
+                        </option>
+
+                    </select>
+
+            </td>
+
+            <!-- IMAGE -->
+
+            <td>
+
+                <img th:src="@{'/uploads/' + ${complaint.imageName}}"
+                     onclick="openImage(this.src)">
+
+            </td>
+
+            <!-- DATE -->
+
+            <td th:text="${#temporals.format(complaint.createdAt,'dd-MM-yyyy')}"></td>
+
+            <!-- UPDATE -->
+
+            <td>
+
+                <button type="submit"
+                        class="update-btn">
+
+                    Update
+
+                </button>
+
+                </form>
+
+            </td>
+
+            <!-- DELETE -->
+
+            <td>
+
+                <a th:href="@{'/deleteComplaint/' + ${complaint.id}}"
+                   class="delete-btn"
+                   onclick="return confirm('Delete this complaint?')">
+
+                    Delete
+
+                </a>
+
+            </td>
+
+        </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<!-- IMAGE MODAL -->
+
+<div id="imageModal"
+     class="modal">
+
+    <span class="close-btn"
+          onclick="closeImage()">
+
+          &times;
+
+    </span>
+
+    <img id="modalImage">
+
+</div>
+
+<script>
+
+// DASHBOARD COUNTS
+
+const rows =
+document.querySelectorAll("tbody tr");
+
+document.getElementById("totalCount")
+.innerText = rows.length;
+
+let pending = 0;
+
+let progress = 0;
+
+let resolved = 0;
+
+rows.forEach(row => {
+
+    const status =
+    row.querySelector("select").value;
+
+    if(status === "Pending"){
+
+        pending++;
+
+    }
+
+    else if(status === "In Progress"){
+
+        progress++;
+
+    }
+
+    else if(status === "Resolved"){
+
+        resolved++;
+
+    }
+
+});
+
+document.getElementById("pendingCount")
+.innerText = pending;
+
+document.getElementById("progressCount")
+.innerText = progress;
+
+document.getElementById("resolvedCount")
+.innerText = resolved;
+
+// SEARCH FILTER
+
+const searchInput =
+document.getElementById("searchInput");
+
+searchInput.addEventListener("keyup", function(){
+
+    const value =
+    this.value.toLowerCase();
+
+    const rows =
+    document.querySelectorAll("tbody tr");
+
+    rows.forEach(row => {
+
+        const text =
+        row.innerText.toLowerCase();
+
+        if(text.includes(value)){
+
+            row.style.display = "";
+
+        }
+
+        else{
+
+            row.style.display = "none";
+
+        }
+
+    });
+
+});
+
+// IMAGE MODAL
+
+function openImage(src){
+
+    document.getElementById(
+            "imageModal"
+    ).style.display = "flex";
+
+    document.getElementById(
+            "modalImage"
+    ).src = src;
+
+}
+
+function closeImage(){
+
+    document.getElementById(
+            "imageModal"
+    ).style.display = "none";
+
+}
+
+</script>
+
+</body>
+
+</html>

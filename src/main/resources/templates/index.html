@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <title>PublicPulse</title>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <!-- FONT AWESOME -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- GOOGLE FONTS -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            font-family:'Poppins', sans-serif;
+
+            background:
+            linear-gradient(
+            rgba(0,0,0,0.75),
+            rgba(0,0,0,0.75)
+            ),
+            url('/images/bg.jpg');
+
+            background-size:cover;
+
+            background-position:center;
+
+            height:100vh;
+
+            overflow:hidden;
+
+            color:white;
+
+        }
+
+        /* NAVBAR */
+
+        .navbar{
+
+            position:fixed;
+
+            top:0;
+
+            width:100%;
+
+            height:74px;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            padding:0 30px;
+
+            background:
+            rgba(0,0,0,0.68);
+
+            backdrop-filter:blur(10px);
+
+            border-bottom:
+            1px solid rgba(255,255,255,0.08);
+
+            z-index:1000;
+
+        }
+
+        /* LOGO */
+
+        .logo-img{
+
+            width:140px;
+
+            height:70px;
+
+            object-fit:contain;
+
+        }
+
+        /* NAV LINKS */
+
+        .nav-links{
+
+            display:flex;
+
+            align-items:center;
+
+            gap:24px;
+
+        }
+
+        .nav-links a{
+
+            text-decoration:none;
+
+            color:white;
+
+            font-size:14px;
+
+            display:flex;
+
+            align-items:center;
+
+            gap:6px;
+
+            transition:0.3s;
+
+            position:relative;
+
+        }
+
+        .nav-links a:hover{
+
+            color:#ff7b00;
+
+        }
+
+        .nav-links a.active{
+
+            color:#ff7b00;
+
+        }
+
+        .nav-links a.active::after{
+
+            content:"";
+
+            position:absolute;
+
+            bottom:-7px;
+
+            left:0;
+
+            width:100%;
+
+            height:3px;
+
+            background:#ff7b00;
+
+            border-radius:10px;
+
+        }
+
+        /* BADGE */
+
+        .badge{
+
+            position:absolute;
+
+            top:-7px;
+
+            right:-10px;
+
+            background:red;
+
+            color:white;
+
+            width:17px;
+
+            height:17px;
+
+            border-radius:50%;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            font-size:10px;
+
+        }
+
+        /* PROFILE */
+
+        .profile-section{
+
+            display:flex;
+
+            align-items:center;
+
+            gap:8px;
+
+            color:#facc15;
+
+            font-size:13px;
+
+            font-weight:500;
+
+        }
+
+        .profile-section i{
+
+            font-size:22px;
+
+        }
+
+        /* MAIN */
+
+        .main-container{
+
+            width:100%;
+
+            height:100vh;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            padding:90px 55px 20px;
+
+            gap:30px;
+
+        }
+
+        /* LEFT */
+
+        .left-section{
+
+            width:58%;
+
+        }
+
+        .left-section h1{
+
+            font-size:44px;
+
+            font-weight:800;
+
+            line-height:1.1;
+
+        }
+
+        .highlight{
+
+            color:#ff7b00;
+
+        }
+
+        .line{
+
+            width:70px;
+
+            height:4px;
+
+            background:#ff7b00;
+
+            border-radius:10px;
+
+            margin:14px 0;
+
+        }
+
+        .left-section p{
+
+            font-size:14px;
+
+            line-height:1.7;
+
+            color:#e5e7eb;
+
+            max-width:500px;
+
+        }
+
+        /* FEATURES */
+
+        .features-box{
+
+            margin-top:24px;
+
+            width:100%;
+
+            max-width:500px;
+
+            background:
+            rgba(0,0,0,0.55);
+
+            border:
+            1px solid rgba(255,255,255,0.08);
+
+            border-radius:20px;
+
+            display:flex;
+
+            justify-content:space-around;
+
+            padding:16px 8px;
+
+            backdrop-filter:blur(8px);
+
+        }
+
+        .feature{
+
+            text-align:center;
+
+            width:25%;
+
+        }
+
+        .feature i{
+
+            font-size:22px;
+
+            color:#ff7b00;
+
+            margin-bottom:8px;
+
+        }
+
+        .feature h3{
+
+            font-size:12px;
+
+            margin-bottom:4px;
+
+        }
+
+        .feature p{
+
+            font-size:10px;
+
+            color:#d1d5db;
+
+            line-height:1.4;
+
+        }
+
+        /* RIGHT */
+
+        .right-section{
+
+            width:32%;
+
+        }
+
+        .form-container{
+
+            background:
+            rgba(0,0,0,0.74);
+
+            border:
+            1px solid rgba(255,255,255,0.08);
+
+            backdrop-filter:blur(10px);
+
+            border-radius:22px;
+
+            padding:20px;
+
+            box-shadow:
+            0px 10px 30px rgba(0,0,0,0.45);
+
+        }
+
+        .form-container h2{
+
+            text-align:center;
+
+            font-size:26px;
+
+            margin-bottom:5px;
+
+        }
+
+        .orange-line{
+
+            width:65px;
+
+            height:4px;
+
+            background:#ff7b00;
+
+            border-radius:10px;
+
+            margin:0 auto 16px;
+
+        }
+
+        /* FORM */
+
+        label{
+
+            display:block;
+
+            margin-bottom:5px;
+
+            margin-top:10px;
+
+            font-size:12px;
+
+            font-weight:500;
+
+        }
+
+        input,
+        textarea,
+        select{
+
+            width:100%;
+
+            padding:10px;
+
+            border:none;
+
+            outline:none;
+
+            border-radius:12px;
+
+            background:
+            rgba(255,255,255,0.06);
+
+            border:
+            1px solid rgba(255,255,255,0.10);
+
+            color:white;
+
+            font-size:13px;
+
+        }
+
+        textarea{
+
+            resize:none;
+
+            height:75px;
+
+        }
+
+        input::placeholder,
+        textarea::placeholder{
+
+            color:#9ca3af;
+
+        }
+
+        /* DROPDOWN FIX */
+
+        select{
+
+            color:white;
+
+        }
+
+        select option{
+
+            background:#111111;
+
+            color:white;
+
+        }
+
+        /* FILE */
+
+        .file-box{
+
+            display:flex;
+
+            overflow:hidden;
+
+            border-radius:12px;
+
+            border:
+            1px solid rgba(255,255,255,0.10);
+
+        }
+
+        .file-box input{
+
+            border:none;
+
+            border-radius:0;
+
+        }
+
+        /* LOCATION */
+
+        .location-wrapper{
+
+            position:relative;
+
+        }
+
+        .location-btn{
+
+            position:absolute;
+
+            right:8px;
+
+            top:50%;
+
+            transform:translateY(-50%);
+
+            width:36px;
+
+            height:36px;
+
+            border:none;
+
+            border-radius:10px;
+
+            background:#ff7b00;
+
+            color:white;
+
+            cursor:pointer;
+
+            font-size:14px;
+
+        }
+
+        /* BUTTON */
+
+        .submit-btn{
+
+            width:100%;
+
+            margin-top:18px;
+
+            padding:11px;
+
+            border:none;
+
+            border-radius:12px;
+
+            background:
+            linear-gradient(
+            to right,
+            #ff5f00,
+            #ff8800
+            );
+
+            color:white;
+
+            font-size:15px;
+
+            font-weight:700;
+
+            cursor:pointer;
+
+            transition:0.3s;
+
+        }
+
+        .submit-btn:hover{
+
+            transform:scale(1.02);
+
+        }
+
+        /* SUCCESS MESSAGE */
+
+        .success-message{
+
+            position:fixed;
+
+            top:85px;
+
+            left:50%;
+
+            transform:translateX(-50%);
+
+            background:#22c55e;
+
+            color:white;
+
+            padding:11px 18px;
+
+            border-radius:10px;
+
+            font-size:13px;
+
+            font-weight:600;
+
+            z-index:2000;
+
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:1100px){
+
+            body{
+
+                overflow:auto;
+
+            }
+
+            .main-container{
+
+                flex-direction:column;
+
+                height:auto;
+
+                padding:100px 20px 40px;
+
+            }
+
+            .left-section,
+            .right-section{
+
+                width:100%;
+
+            }
+
+            .left-section h1{
+
+                font-size:36px;
+
+            }
+
+            .features-box{
+
+                flex-wrap:wrap;
+
+                gap:18px;
+
+            }
+
+            .feature{
+
+                width:40%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- SUCCESS -->
+
+<div th:if="${param.success}"
+     class="success-message">
+
+     Complaint Submitted Successfully
+
+</div>
+
+<!-- NAVBAR -->
+
+<div class="navbar">
+
+    <!-- LOGO -->
+
+    <div class="nav-logo">
+
+        <img src="/images/logo.png"
+             class="logo-img">
+
+    </div>
+
+    <!-- LINKS -->
+
+    <div class="nav-links">
+
+        <a href="/" class="active">
+
+            <i class="fa-solid fa-house"></i>
+
+            Home
+
+        </a>
+
+        <a href="/mycomplaints">
+
+            <i class="fa-regular fa-clipboard"></i>
+
+            My Complaints
+
+            <span class="badge"
+                  th:if="${pendingCount > 0}"
+                  th:text="${pendingCount}"></span>
+
+        </a>
+
+        <a href="/help">
+
+            <i class="fa-regular fa-circle-question"></i>
+
+            Help
+
+        </a>
+
+        <a href="/logout">
+
+            <i class="fa-solid fa-right-from-bracket"></i>
+
+            Logout
+
+        </a>
+
+    </div>
+
+    <!-- PROFILE -->
+
+    <div class="profile-section">
+
+        <i class="fa-solid fa-circle-user"></i>
+
+        <span th:text="${session.loggedUser}"></span>
+
+    </div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main-container">
+
+    <!-- LEFT -->
+
+    <div class="left-section">
+
+        <h1>
+
+            See a Problem?<br>
+
+            <span class="highlight">
+
+                Report It.
+
+            </span>
+
+        </h1>
+
+        <div class="line"></div>
+
+        <p>
+
+            PublicPulse helps citizens report
+            garbage, road damage, drainage,
+            pollution and other civic issues
+            quickly and efficiently.
+
+        </p>
+
+        <!-- FEATURES -->
+
+        <div class="features-box">
+
+            <div class="feature">
+
+                <i class="fa-solid fa-bullhorn"></i>
+
+                <h3>Report</h3>
+
+                <p>Civic issues</p>
+
+            </div>
+
+            <div class="feature">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                <h3>Track</h3>
+
+                <p>Live updates</p>
+
+            </div>
+
+            <div class="feature">
+
+                <i class="fa-solid fa-circle-check"></i>
+
+                <h3>Resolve</h3>
+
+                <p>Cleaner city</p>
+
+            </div>
+
+            <div class="feature">
+
+                <i class="fa-solid fa-users"></i>
+
+                <h3>Together</h3>
+
+                <p>Better future</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <div class="right-section">
+
+        <div class="form-container">
+
+            <h2>Report Problem</h2>
+
+            <div class="orange-line"></div>
+
+            <form action="/submit"
+                  method="post"
+                  enctype="multipart/form-data">
+
+                <label>Problem Title</label>
+
+                <input type="text"
+                       name="title"
+                       placeholder="Enter issue title"
+                       required>
+
+                <label>Description</label>
+
+                <textarea name="description"
+                          placeholder="Describe the issue"></textarea>
+
+                <label>Category</label>
+
+                <select name="category"
+                        required>
+
+                    <option value="" disabled selected>
+
+                        Select Category
+
+                    </option>
+
+                    <option>Garbage</option>
+
+                    <option>Road Damage</option>
+
+                    <option>Water Leakage</option>
+
+                    <option>Drainage Issue</option>
+
+                    <option>Street Light</option>
+
+                    <option>Traffic Issue</option>
+
+                </select>
+
+                <label>Upload Image</label>
+
+                <div class="file-box">
+
+                    <input type="file"
+                           name="imageFile"
+                           accept="image/*"
+                           required>
+
+                </div>
+
+                <label>Location</label>
+
+                <div class="location-wrapper">
+
+                    <input type="text"
+                           id="location"
+                           name="location"
+                           placeholder="Enter or detect location"
+                           required>
+
+                    <button type="button"
+                            class="location-btn"
+                            onclick="getLocation()">
+
+                        <i class="fa-solid fa-location-crosshairs"></i>
+
+                    </button>
+
+                </div>
+
+                <button type="submit"
+                        class="submit-btn">
+
+                    Submit Complaint
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    function getLocation(){
+
+        if(navigator.geolocation){
+
+            navigator.geolocation.getCurrentPosition(
+
+                function(position){
+
+                    document.getElementById(
+                        "location"
+                    ).value =
+
+                    position.coords.latitude
+                    + ", " +
+                    position.coords.longitude;
+
+                }
+
+            );
+
+        }
+
+    }
+
+    // AUTO HIDE SUCCESS
+
+    const successMessage =
+    document.querySelector(
+        ".success-message"
+    );
+
+    if(successMessage){
+
+        setTimeout(() => {
+
+            successMessage.style.display =
+            "none";
+
+        }, 3000);
+
+    }
+
+</script>
+
+</body>
+
+</html>

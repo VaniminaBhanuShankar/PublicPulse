@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Help - PublicPulse</title>
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+
+            font-family:'Poppins', sans-serif;
+
+            min-height:100vh;
+
+            background:
+            linear-gradient(
+            rgba(0,0,0,0.65),
+            rgba(0,0,0,0.65)
+            ),
+            url('/images/bg.jpg');
+
+            background-size:cover;
+
+            background-position:center;
+
+            color:white;
+
+            padding:35px;
+
+        }
+
+        h1{
+
+            text-align:center;
+
+            font-size:42px;
+
+            margin-bottom:35px;
+
+            color:#f97316;
+
+        }
+
+        .faq-container{
+
+            max-width:850px;
+
+            margin:auto;
+
+        }
+
+        .faq{
+
+            background:
+            rgba(0,0,0,0.72);
+
+            backdrop-filter:blur(12px);
+
+            border-radius:18px;
+
+            margin-bottom:16px;
+
+            overflow:hidden;
+
+            border:
+            1px solid rgba(255,255,255,0.08);
+
+        }
+
+        .faq-question{
+
+            padding:18px 22px;
+
+            cursor:pointer;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+            font-size:20px;
+
+            font-weight:600;
+
+            color:#fb923c;
+
+        }
+
+        .faq-answer{
+
+            max-height:0;
+
+            overflow:hidden;
+
+            transition:0.4s ease;
+
+            padding:0 22px;
+
+        }
+
+        .faq-answer p{
+
+            padding-bottom:20px;
+
+            color:#d1d5db;
+
+            line-height:1.7;
+
+            font-size:16px;
+
+        }
+
+        .faq.active .faq-answer{
+
+            max-height:220px;
+
+        }
+
+        .icon{
+
+            font-size:18px;
+
+            transition:0.3s;
+
+        }
+
+        .faq.active .icon{
+
+            transform:rotate(180deg);
+
+        }
+
+        .back-btn{
+
+            display:inline-block;
+
+            margin-top:28px;
+
+            padding:13px 26px;
+
+            border-radius:14px;
+
+            text-decoration:none;
+
+            background:
+            linear-gradient(
+            to right,
+            #f97316,
+            #fb923c
+            );
+
+            color:white;
+
+            font-weight:600;
+
+        }
+
+        .button-wrapper{
+
+            text-align:center;
+
+        }
+
+        /* LIVE CHAT */
+
+        .chat-button{
+
+            position:fixed;
+
+            bottom:25px;
+
+            right:25px;
+
+            width:60px;
+
+            height:60px;
+
+            border-radius:50%;
+
+            background:
+            linear-gradient(
+            to right,
+            #f97316,
+            #fb923c
+            );
+
+            display:flex;
+
+            justify-content:center;
+
+            align-items:center;
+
+            font-size:28px;
+
+            cursor:pointer;
+
+            box-shadow:
+            0px 10px 25px rgba(0,0,0,0.35);
+
+        }
+
+        .chat-box{
+
+            position:fixed;
+
+            bottom:95px;
+
+            right:25px;
+
+            width:310px;
+
+            background:#111827;
+
+            border-radius:18px;
+
+            overflow:hidden;
+
+            display:none;
+
+            flex-direction:column;
+
+            box-shadow:
+            0px 10px 30px rgba(0,0,0,0.40);
+
+        }
+
+        .chat-header{
+
+            background:#f97316;
+
+            color:white;
+
+            padding:14px;
+
+            font-weight:600;
+
+            display:flex;
+
+            justify-content:space-between;
+
+            align-items:center;
+
+        }
+
+        .chat-header span{
+
+            cursor:pointer;
+
+        }
+
+        .chat-body{
+
+            padding:16px;
+
+            height:210px;
+
+            overflow-y:auto;
+
+            color:white;
+
+        }
+
+        .message{
+
+            background:#1f2937;
+
+            padding:10px 14px;
+
+            border-radius:14px;
+
+            margin-bottom:12px;
+
+            width:fit-content;
+
+            max-width:85%;
+
+            font-size:14px;
+
+        }
+
+        .user-message{
+
+            background:#f97316;
+
+            margin-left:auto;
+
+        }
+
+        .chat-footer{
+
+            display:flex;
+
+            border-top:
+            1px solid rgba(255,255,255,0.08);
+
+        }
+
+        .chat-footer input{
+
+            flex:1;
+
+            border:none;
+
+            padding:14px;
+
+            outline:none;
+
+        }
+
+        .chat-footer button{
+
+            border:none;
+
+            background:#f97316;
+
+            color:white;
+
+            padding:14px 18px;
+
+            cursor:pointer;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<h1>Help & Support</h1>
+
+<div class="faq-container">
+
+    <div class="faq">
+
+        <div class="faq-question">
+
+            How to Report a Complaint?
+
+            <span class="icon">⌄</span>
+
+        </div>
+
+        <div class="faq-answer">
+
+            <p>
+
+                Fill the complaint form on the homepage,
+                upload issue image, detect location and
+                submit your complaint.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="faq">
+
+        <div class="faq-question">
+
+            How Complaint Status Works?
+
+            <span class="icon">⌄</span>
+
+        </div>
+
+        <div class="faq-answer">
+
+            <p>
+
+                Every complaint starts with Pending.
+                Admin can later change it to
+                In Progress or Resolved.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="faq">
+
+        <div class="faq-question">
+
+            What Issues Can I Report?
+
+            <span class="icon">⌄</span>
+
+        </div>
+
+        <div class="faq-answer">
+
+            <p>
+
+                You can report garbage issues,
+                road damage, drainage problems,
+                water leakage, traffic issues and more.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="faq">
+
+        <div class="faq-question">
+
+            Need More Support?
+
+            <span class="icon">⌄</span>
+
+        </div>
+
+        <div class="faq-answer">
+
+            <p>
+
+                📧 support@publicpulse.com
+
+                <br><br>
+
+              
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="button-wrapper">
+
+        <a href="/"
+            class="back-btn">
+
+            Back to Home
+
+        </a>
+
+    </div>
+
+</div>
+
+<!-- LIVE CHAT -->
+
+<div class="chat-button"
+    onclick="openChat()">
+
+    💬
+
+</div>
+
+<div class="chat-box"
+    id="chatBox">
+
+    <div class="chat-header">
+
+        PublicPulse Support
+
+        <span onclick="closeChat()">
+            ✖
+        </span>
+
+    </div>
+
+    <div class="chat-body"
+        id="chatBody">
+
+        <div class="message">
+
+            👋 Hello! How can we help you?
+
+        </div>
+
+    </div>
+
+    <div class="chat-footer">
+
+        <input type="text"
+            id="chatInput"
+            placeholder="Type message...">
+
+        <button onclick="sendMessage()">
+
+            Send
+
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+    // FAQ ACCORDION
+
+    const faqs =
+        document.querySelectorAll(".faq");
+
+    faqs.forEach(faq => {
+
+        faq.addEventListener("click", () => {
+
+            faq.classList.toggle("active");
+
+        });
+
+    });
+
+    // OPEN CHAT
+
+    function openChat(){
+
+        document
+        .getElementById("chatBox")
+        .style.display = "flex";
+
+    }
+
+    // CLOSE CHAT
+
+    function closeChat(){
+
+        document
+        .getElementById("chatBox")
+        .style.display = "none";
+
+    }
+
+    // SEND MESSAGE
+
+    function sendMessage(){
+
+        const input =
+            document.getElementById("chatInput");
+
+        const message =
+            input.value.trim();
+
+        if(message === ""){
+
+            return;
+
+        }
+
+        const chatBody =
+            document.getElementById("chatBody");
+
+        // USER MESSAGE
+
+        const userDiv =
+            document.createElement("div");
+
+        userDiv.classList.add(
+            "message",
+            "user-message"
+        );
+
+        userDiv.innerText = message;
+
+        chatBody.appendChild(userDiv);
+
+        // BOT REPLY
+
+        setTimeout(() => {
+
+            const botDiv =
+                document.createElement("div");
+
+            botDiv.classList.add("message");
+
+            botDiv.innerText =
+                "Thanks for contacting PublicPulse Support";
+
+            chatBody.appendChild(botDiv);
+
+            chatBody.scrollTop =
+                chatBody.scrollHeight;
+
+        }, 800);
+
+        input.value = "";
+
+        chatBody.scrollTop =
+            chatBody.scrollHeight;
+
+    }
+
+</script>
+
+</body>
+
+</html>
