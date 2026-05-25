@@ -1,6 +1,6 @@
 services:
   - type: web
     name: publicpulse
-    env: java
+    runtime: java
     buildCommand: "./mvnw clean install"
     startCommand: "java -jar target/*.jar"
